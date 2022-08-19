@@ -28,23 +28,26 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
-
+classes = ('electrical-components', 'and', 'antenna', 'capacitor-polarized', 'capacitor-unpolarized', 'crossover', 'diac', 'diode', 'diode-light_emitting', 'fuse', 'gnd', 'inductor', 'integrated_circuit', 'integrated_cricuit-ne555', 'junction', 'lamp', 'microphone', 'motor', 'nand', 'nor', 'not', 'operational_amplifier', 'optocoupler', 'or', 'probe-current', 'relay', 'resistor', 'resistor-adjustable', 'resistor-photo', 'schmitt_trigger', 'socket', 'speaker', 'switch', 'terminal', 'text', 'thyristor', 'transformer', 'transistor', 'transistor-photo', 'triac', 'varistor', 'voltage-dc', 'voltage-dc_ac', 'voltage-dc_regulator', 'vss', 'xor')
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/train.json',
+        classes=classes,
         img_prefix=data_root + 'train/',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/valid.json',
         img_prefix=data_root + 'valid/',
+        classes=classes,
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/test.json',
         img_prefix=data_root + 'test/',
+        classes=classes,
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
